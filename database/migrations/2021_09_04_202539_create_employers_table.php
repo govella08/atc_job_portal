@@ -16,8 +16,8 @@ class CreateEmployersTable extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('logo')->nullable();
+            $table->text('description')->nullable();
+            $table->text('logo')->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQualificationsTable extends Migration
+class CreateDutiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateQualificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('qualifications', function (Blueprint $table) {
+        Schema::create('duties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('job_id');
+            $table->index('job_id');
             $table->timestamps();
+
+            // foreign keys:
+            $table->foreign('job_id')->references('id')->on('jobs');
         });
     }
 
@@ -27,6 +32,6 @@ class CreateQualificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('qualifications');
+        Schema::dropIfExists('duties');
     }
 }

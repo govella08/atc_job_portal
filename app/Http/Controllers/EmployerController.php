@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EmployerResource;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 
@@ -14,17 +15,8 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $employer = Employer::all();
+        return EmployerResource::collection($employer);
     }
 
     /**
@@ -35,7 +27,13 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employer = new Employer();
+        $employer->name = $request->name;
+        $employer->description = $request->description;
+
+        if ($employer->save()) {
+            return new EmployerResource($employer);
+        }
     }
 
     /**
@@ -46,18 +44,7 @@ class EmployerController extends Controller
      */
     public function show(Employer $employer)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Employer  $employer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employer $employer)
-    {
-        //
+        return new EmployerResource($employer);
     }
 
     /**
@@ -69,7 +56,12 @@ class EmployerController extends Controller
      */
     public function update(Request $request, Employer $employer)
     {
-        //
+        $employer->name = $request->name;
+        $employer->description = $request->description;
+
+        if ($employer->update()) {
+            return new EmployerResource($employer);
+        }
     }
 
     /**
@@ -80,6 +72,8 @@ class EmployerController extends Controller
      */
     public function destroy(Employer $employer)
     {
-        //
+        if ($employer->delete()) {
+            return new EmployerResource($employer);
+        }
     }
 }

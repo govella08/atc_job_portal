@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RoleResource;
-use App\Models\Role;
+use App\Http\Resources\DutyResource;
+use App\Models\Duty;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class DutyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return RoleResource::collection(Role::all());
+        return DutyResource::collection(Duty::all());
     }
 
     /**
@@ -26,49 +26,51 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = new Role();
-        $role->name = $request->name;
-        if ($role->save()) {
-            return new RoleResource($role);
+        $duty = new Duty();
+        $duty->name = $request->name;
+
+        if ($duty->save()) {
+            return new DutyResource($duty);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Duty  $duty
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Duty $duty)
     {
-        return new RoleResource($role);
+        return new DutyResource($duty);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Duty  $duty
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Duty $duty)
     {
-        $role->name = $request->name;
-        if ($role->update()) {
-            return new RoleResource($role);
+        $duty->name = $request->name;
+
+        if ($duty->update()) {
+            return new DutyResource($duty);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Duty  $duty
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Duty $duty)
     {
-        if ($role->delete()) {
-            return new RoleResource($role);
+        if ($duty->delete()) {
+            return new DutyResource($duty);
         }
     }
 }

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Qualification extends Model
+class Duty extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
 
-    public function jobs()
+    public function job()
     {
-        return $this->belongsToMany(Job::class);
+        return $this->belongsTo(Job::class);
     }
 }

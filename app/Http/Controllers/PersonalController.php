@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PersonalResource;
 use App\Models\Personal;
 use Illuminate\Http\Request;
 
@@ -14,17 +15,7 @@ class PersonalController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return PersonalResource::collection(Personal::all());
     }
 
     /**
@@ -35,29 +26,34 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'sex' => 'required|string',
+            'dob' => 'required|date',
+            'country_of_residence' => 'required|string',
+            'region' => 'required|string',
+            'district' => 'required|string',
+            'marital_status' => 'required|string',
+            'originality' => 'required|string',
+            'disability' => 'required|boolean',
+            'government_employee_status' => 'required|boolean',
+            'user_id' => 'required|integer'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Personal  $personal
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Personal $personal)
-    {
-        //
-    }
+        $personal = new Personal();
+        $personal->sex = $request->sex;
+        $personal->dob = $request->dob;
+        $personal->country_of_residence = $request->country_of_residence;
+        $personal->region = $request->region;
+        $personal->district = $request->district;
+        $personal->marital_status = $request->marital_status;
+        $personal->originality = $request->originality;
+        $personal->disability = $request->disability;
+        $personal->government_employee_status = $request->government_employee_status;
+        $personal->user_id = $request->user_id;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Personal  $personal
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Personal $personal)
-    {
-        //
+        if ($personal->save()) {
+            return new PersonalResource($personal);
+        }
     }
 
     /**
@@ -69,7 +65,33 @@ class PersonalController extends Controller
      */
     public function update(Request $request, Personal $personal)
     {
-        //
+        $request->validate([
+            'sex' => 'required|string',
+            'dob' => 'required|date',
+            'country_of_residence' => 'required|string',
+            'region' => 'required|string',
+            'district' => 'required|string',
+            'marital_status' => 'required|string',
+            'originality' => 'required|string',
+            'disability' => 'required|boolean',
+            'government_employee_status' => 'required|boolean',
+            'user_id' => 'required|integer'
+        ]);
+        
+        $personal->sex = $request->sex;
+        $personal->dob = $request->dob;
+        $personal->country_of_residence = $request->country_of_residence;
+        $personal->region = $request->region;
+        $personal->district = $request->district;
+        $personal->marital_status = $request->marital_status;
+        $personal->originality = $request->originality;
+        $personal->disability = $request->disability;
+        $personal->government_employee_status = $request->government_employee_status;
+        $personal->user_id = $request->user_id;
+
+        if ($personal->update()) {
+            return new PersonalResource($personal);
+        }
     }
 
     /**
@@ -80,6 +102,8 @@ class PersonalController extends Controller
      */
     public function destroy(Personal $personal)
     {
-        //
+        if ($personal->delete()) {
+            return new PersonalResource($personal);            
+        }
     }
 }

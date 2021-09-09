@@ -16,9 +16,15 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->unsignedInteger('number_of_posts');
+            $table->text('description')->nullable();
+            $table->text('qualification');
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->string('description')->nullable();
             $table->unsignedBigInteger('employer_id')->default(1);
+            $table->timestamp('posted_on')->nullable();
+            $table->date('deadline')->nullable();
+            $table->string('salary_scale');
+            $table->string('file_path')->nullable();
             $table->timestamps();
 
             // Foreign keys

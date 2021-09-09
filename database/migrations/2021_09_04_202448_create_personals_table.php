@@ -16,8 +16,16 @@ class CreatePersonalsTable extends Migration
         Schema::create('personals', function (Blueprint $table) {
             $table->id();
             $table->string('sex');
+            $table->date('dob');
+            $table->string('country_of_residence');
+            $table->string('region');
+            $table->string('district');
+            $table->string('marital_status');
+            $table->string('originality');
+            $table->boolean('disability');
+            $table->boolean('government_employee_status');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->index('user_id');
+            $table->index('user_id');            
             $table->timestamps();
 
             // foreign key

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description'];
+    protected $guarded = [];
 
     public function category()
     {
@@ -20,8 +20,8 @@ class Job extends Model
         return $this->belongsTo(Employer::class);
     }
 
-    public function qualifications()
+    public function duties()
     {
-        return $this->belongsToMany(Qualification::class);
+        return $this->hasMany(Duty::class);
     }
 }

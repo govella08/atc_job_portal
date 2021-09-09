@@ -35,22 +35,30 @@ Route::get('/personals/{personal}', [PersonalController::class, 'show']);
 Route::get('/contacts/{contact}', [ContactController::class, 'show']);
 
 // protected routes group:
-Route::group(['middleware' => ['auth:sanctum']], function() {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/roles', RoleController::class);
-    
+
+    // post protected routes
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::post('/jobs', [JobController::class, 'store']);
+    Route::post('/employers', [EmployerController::class, 'store']);
+    Route::post('/duties', [DutyController::class, 'store']);
+    Route::post('/personals', [PersonalController::class, 'store']);
+    Route::post('/contacts', [ContactController::class, 'store']);
+
     // delete protected routes
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
-    Route::delete('/jobs/{job}', [JobController::class, 'destroy']);    
+    Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
     Route::delete('/employers/{employer}', [EmployerController::class, 'destroy']);
     Route::delete('/duties/{duty}', [DutyController::class, 'destroy']);
     Route::delete('/personals/{personal}', [PersonalController::class, 'destroy']);
     Route::delete('/contacts/{contact}', [ContactController::class, 'destroy']);
-    
+
     // update protected routes
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
-    Route::put('/jobs/{job}', [JobController::class, 'update']);    
+    Route::put('/jobs/{job}', [JobController::class, 'update']);
     Route::put('/employers/{employer}', [EmployerController::class, 'update']);
     Route::put('/duties/{duty}', [DutyController::class, 'update']);
     Route::put('/personals/{personal}', [PersonalController::class, 'update']);
